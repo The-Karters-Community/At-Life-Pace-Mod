@@ -3,10 +3,12 @@ using BepInEx.Configuration;
 using TheKartersModdingAssistant;
 using AtLifePace.EventHandler;
 using UnityEngine;
+using TheKarters2Mods;
 
 namespace AtLifePace;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+[BepInDependency(DisableLeaderboards_BepInExInfo.PLUGIN_GUID, "1.0.0")]
 public class AtLifePace: AbstractPlugin {
     public static AtLifePace instance;
 
@@ -43,6 +45,9 @@ public class AtLifePace: AbstractPlugin {
 
         if (this.data.isModEnabled) {
             this.logger.Info($"{this.pluginName} has been enabled.", true);
+
+            // Disable ghost upload in leaderboards.
+            DisableLeaderboardsPlugin.Enable();
 
             // Put all methods that should patched by Harmony here.
             // Eg:
