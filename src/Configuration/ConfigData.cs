@@ -5,5 +5,6 @@ public class ConfigData {
     public bool isModEnabled;
 
     // Customization
-    //public int myIntegerCustomizationConfig;
+    public int reservePercentageAtMinimumHealth;
+    public int reservePercentageAtMaximumHealth;
 }
