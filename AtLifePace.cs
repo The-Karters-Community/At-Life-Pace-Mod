@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using TheKartersModdingAssistant;
 using AtLifePace.EventHandler;
+using UnityEngine;
 
 namespace AtLifePace;
 
@@ -78,13 +79,21 @@ public class AtLifePace: AbstractPlugin {
     /// Bind customization configurations from the config file.
     /// </summary>
     protected void BindCustomizationConfig() {
-        /*ConfigEntry<int> myIntegerCustomizationConfig = Config.Bind(
+        ConfigEntry<int> reservePercentageAtMinimumHealth = Config.Bind(
             ConfigCategory.Customization,
-            nameof(myIntegerCustomizationConfig),
-            10,
-            "Whether the mod is enabled."
+            nameof(reservePercentageAtMinimumHealth),
+            100,
+            "The reserve percentage value when a player is at his minimum health. A value below 100 will be clamped."
         );
 
-        this.data.myIntegerCustomizationConfig = myIntegerCustomizationConfig.Value;*/
+        ConfigEntry<int> reservePercentageAtMaximumHealth = Config.Bind(
+            ConfigCategory.Customization,
+            nameof(reservePercentageAtMaximumHealth),
+            150,
+            "The reserve percentage value when a player is at his maximum health."
+        );
+
+        this.data.reservePercentageAtMinimumHealth = Mathf.Max(100, reservePercentageAtMinimumHealth.Value);
+        this.data.reservePercentageAtMaximumHealth = reservePercentageAtMaximumHealth.Value;
     }
 }

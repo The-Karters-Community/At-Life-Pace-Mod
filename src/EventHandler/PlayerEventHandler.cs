@@ -10,10 +10,10 @@ public static class PlayerEventHandler {
     }
 
     public static void OnFixedUpdateAfter(Player player) {
-        // 17 raw reserve is ~150%.
-        float amountOfReservePercAtMinHealth = 100;
-        float amountOfReservePercAtMaxHealth = 150;
+        float amountOfReservePercAtMinHealth = AtLifePace.Get().data.reservePercentageAtMinimumHealth;
+        float amountOfReservePercAtMaxHealth = AtLifePace.Get().data.reservePercentageAtMaximumHealth;
         float reservePercDiff = amountOfReservePercAtMaxHealth - amountOfReservePercAtMinHealth;
+
         int maxHealth = player.GetMaximumHealth();
         int currentHealth = player.GetCurrentHealth();
 
