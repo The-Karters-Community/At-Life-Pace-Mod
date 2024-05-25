@@ -1,4 +1,4 @@
-namespace NewModTemplate;
+namespace AtLifePace;
 
 public class ConfigData {
     // General

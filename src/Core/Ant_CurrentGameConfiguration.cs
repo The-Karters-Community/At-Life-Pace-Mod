@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace NewModTemplate.Core;
+namespace AtLifePace.Core;
 
 /// <summary>
 /// This class will patch the Ant_CurrentGameConfiguration::Start method.
@@ -20,6 +20,6 @@ public class Ant_CurrentGameConfiguration__Start {
 
     public static void Postfix(Ant_CurrentGameConfiguration __instance) {
         // Executed after the original method.
-        NewModTemplate.Get().logger.Log("(From patched method) The game has been started.");
+        AtLifePace.Get().logger.Log("(From patched method) The game has been started.");
     }
 }

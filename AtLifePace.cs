@@ -1,30 +1,30 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using NewModTemplate.Core;
+using AtLifePace.Core;
 using TheKartersModdingAssistant;
 using TheKartersModdingAssistant.Event;
 
-namespace NewModTemplate;
+namespace AtLifePace;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-public class NewModTemplate: AbstractPlugin {
-    public static NewModTemplate instance;
+public class AtLifePace: AbstractPlugin {
+    public static AtLifePace instance;
 
     /// <summary>
     /// Get the plugin instance.
     /// </summary>
     /// 
-    /// <returns>NewModTemplate</returns>
-    public static NewModTemplate Get() {
-        return NewModTemplate.instance;
+    /// <returns>AtLifePace</returns>
+    public static AtLifePace Get() {
+        return AtLifePace.instance;
     }
 
     public ConfigData data = new();
 
     /// <summary>
-    /// NewModTemplate constructor.
+    /// AtLifePace constructor.
     /// </summary>
-    public NewModTemplate(): base() {
+    public AtLifePace(): base() {
         this.pluginGuid = MyPluginInfo.PLUGIN_GUID;
         this.pluginName = MyPluginInfo.PLUGIN_NAME;
         this.pluginVersion = MyPluginInfo.PLUGIN_VERSION;
@@ -32,7 +32,7 @@ public class NewModTemplate: AbstractPlugin {
         this.harmony = new(this.pluginGuid);
         this.logger = new(this.Log);
 
-        NewModTemplate.instance = this;
+        AtLifePace.instance = this;
     }
 
     /// <summary>
