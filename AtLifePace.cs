@@ -1,8 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using AtLifePace.Core;
 using TheKartersModdingAssistant;
-using TheKartersModdingAssistant.Event;
+using AtLifePace.EventHandler;
 
 namespace AtLifePace;
 
@@ -46,11 +45,10 @@ public class AtLifePace: AbstractPlugin {
 
             // Put all methods that should patched by Harmony here.
             // Eg:
-            this.harmony.PatchAll(typeof(Ant_CurrentGameConfiguration__Start));
+            //this.harmony.PatchAll(typeof(Ant_CurrentGameConfiguration__Start));
 
             // Then, add methods to the SDK actions.
-            // Eg:
-            GameEvent.onGameStart += () => this.logger.Log("(From action) The game has been started.");
+            PlayerEventHandler.Initialize();
         }
     }
 
