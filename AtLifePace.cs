@@ -4,6 +4,7 @@ using TheKartersModdingAssistant;
 using AtLifePace.EventHandler;
 using UnityEngine;
 using TheKarters2Mods;
+using AtLifePace.Core;
 
 namespace AtLifePace;
 
@@ -51,7 +52,9 @@ public class AtLifePace: AbstractPlugin {
 
             // Put all methods that should patched by Harmony here.
             // Eg:
-            //this.harmony.PatchAll(typeof(Ant_CurrentGameConfiguration__Start));
+            this.harmony.PatchAll(typeof(HpBarController__Hit));
+            this.harmony.PatchAll(typeof(HpBarController__HealthBotStartRefilingHealth));
+            this.harmony.PatchAll(typeof(HpBarController__HpAddC));
 
             // Then, add methods to the SDK actions.
             PlayerEventHandler.Initialize();
@@ -98,7 +101,17 @@ public class AtLifePace: AbstractPlugin {
             "The reserve percentage value when a player is at his maximum health."
         );
 
+        ConfigEntry<bool> isAlternativeVersionEnabled = Config.Bind(
+            ConfigCategory.Customization,
+            nameof(isAlternativeVersionEnabled),
+            false,
+            "Whether the alternative version of the mod is enabled. in alternative version, less health means more speed, you will lose health when hitting someone and you will heal when someone hits you."
+        );
+
         this.data.reservePercentageAtMinimumHealth = Mathf.Max(100, reservePercentageAtMinimumHealth.Value);
         this.data.reservePercentageAtMaximumHealth = reservePercentageAtMaximumHealth.Value;
+        this.data.isAlternativeVersionEnabled = isAlternativeVersionEnabled.Value;
+
+        this.data.Log(this.logger);
     }
 }
