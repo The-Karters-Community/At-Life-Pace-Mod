@@ -10,6 +10,16 @@ public static class PlayerEventHandler {
     }
 
     public static void OnFixedUpdateAfter(Player player) {
+        if (AtLifePace.Get().data.isAlternativeVersionEnabled) {
+            PlayerEventHandler.SetReserveBasedOnHealth_Reverse(player);
+        } else {
+            PlayerEventHandler.SetReserveBasedOnHealth(player);
+        }
+
+        //PlayerEventHandler.SetJumpStrengthBasedOnHealth(player);
+    }
+
+    public static void SetReserveBasedOnHealth(Player player) {
         float amountOfReservePercAtMinHealth = AtLifePace.Get().data.reservePercentageAtMinimumHealth;
         float amountOfReservePercAtMaxHealth = AtLifePace.Get().data.reservePercentageAtMaximumHealth;
         float reservePercDiff = amountOfReservePercAtMaxHealth - amountOfReservePercAtMinHealth;
@@ -24,6 +34,39 @@ public static class PlayerEventHandler {
         float newReservePerc = a * currentHealth + b;
 
         player.SetCurrentReserve(PlayerEventHandler.ConvertPercentageReserveToRaw(newReservePerc));
+    }
+
+    public static void SetReserveBasedOnHealth_Reverse(Player player) {
+        float amountOfReservePercAtMinHealth = AtLifePace.Get().data.reservePercentageAtMinimumHealth;
+        float amountOfReservePercAtMaxHealth = AtLifePace.Get().data.reservePercentageAtMaximumHealth;
+        float reservePercDiff = amountOfReservePercAtMaxHealth - amountOfReservePercAtMinHealth;
+
+        int maxHealth = player.GetMaximumHealth();
+        int currentHealth = player.GetCurrentHealth();
+
+        // Linear relationship
+        float a = amountOfReservePercAtMaxHealth;
+        float b = reservePercDiff / maxHealth;
+        float newReservePerc = a - b * currentHealth;
+
+        player.SetCurrentReserve(PlayerEventHandler.ConvertPercentageReserveToRaw(newReservePerc));
+    }
+
+    public static void SetJumpStrengthBasedOnHealth(Player player) {
+        float jumpStrengthAtMinHealth = 21f;
+        float jumpStrengthAtMaxHealth = jumpStrengthAtMinHealth * 2;
+        float jumpStrengthDiff = jumpStrengthAtMaxHealth - jumpStrengthAtMinHealth;
+
+        int maxHealth = player.GetMaximumHealth();
+        int currentHealth = player.GetCurrentHealth();
+
+        // Linear relationship
+        float a = jumpStrengthDiff / maxHealth;
+        float b = jumpStrengthAtMinHealth;
+
+        float newJumpStrength = a * currentHealth + b;
+
+        player.uPixelKartPhysics.fJumpStrength = newJumpStrength;
     }
 
     /// <summary>
